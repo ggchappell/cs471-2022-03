@@ -2,7 +2,10 @@
 # pps.py
 # Glenn G. Chappell
 # 2022-10-10
-"""Source file for function pretty_print_square"""
+"""
+Source file for function pretty_print_square
+Demonstrates python doctests
+"""
 
 
 def pretty_print_square(n):
