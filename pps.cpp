@@ -1,13 +1,13 @@
 // pps.cpp
 // Glenn G. Chappell
-// 2022-10-12
+// Started: 2022-10-12
+// Updated: 2022-10-17
 //
 // For CS 471 Fall 2022
 // Source for function pretty_print_square
 
 #include "pps.h"     // Our header
-#include <iostream>
-using std::cout;
+#include <ostream>
 using std::ostream;
 #include <string>
 using std::string;
@@ -52,22 +52,6 @@ public:
         return result;
     }
 };
-
-
-// prettify_it
-// Given a "computer" object (has member "compute" that takes int and
-// returns int) and "stringifier" object (has member "stringify that
-// takes string and returns string), returns the composition of the two
-// operations: compute, then stringify.
-template<typename Compute, typename Stringify>
-string prettify_it(int n,
-                   Compute && computer,  // Universal reference
-                   Stringify && stringifier)
-{
-    int nn = computer.compute(n);
-    string str = stringifier.stringify(nn);
-    return str;
-}
 
 
 // pretty_print_square

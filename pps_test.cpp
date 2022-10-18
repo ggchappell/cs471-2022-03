@@ -1,6 +1,7 @@
 // pps_test.cpp
 // Glenn G. Chappell
-// 2022-10-12
+// Started: 2022-10-12
+// Updated: 2022-01-17
 //
 // For CS 471 Fall 2022
 // Test suite for pretty_print_square
@@ -19,6 +20,54 @@
 using std::ostringstream;
 #include <string>
 using std::string;
+using std::to_string;
+#include <algorithm>
+using std::reverse;
+#include <iterator>
+using std::begin;
+using std::end;
+
+
+class ComputeMock {
+public:
+    int compute(int n) const
+    {
+        return n;
+    }
+};
+
+
+class StringifyMock {
+public:
+    string stringify(int nn) const
+    {
+        return to_string(nn);
+    }
+};
+
+
+// class Doubler
+// Has member func "compute", that returns twice its argument.
+//
+// Conforms to the interface for a "computer" used by prettify_it.
+class Doubler {
+public:
+    int compute(int n) const
+    {
+        return 2*n;
+    }
+};
+
+
+class Reverser {
+public:
+    string stringify(int nn) const
+    {
+        auto ss = to_string(nn);
+        reverse(begin(ss), end(ss));
+        return ss;
+    }
+};
 
 
 TEST_CASE("pretty_print_square works")
@@ -40,6 +89,30 @@ TEST_CASE("pretty_print_square works")
         string expected = "*****\n*   *\n* 1 *\n*   *\n*****\n";
         pretty_print_square(num, os);
         auto result = os.str();
+        CHECK(result == expected);
+    }
+}
+
+
+TEST_CASE("prettify_it does computation correctly")
+{
+    SUBCASE("p_i w/ doubling")
+    {
+        int num = 6;
+        string expected = "12";
+        auto result = prettify_it(num, Doubler(), StringifyMock());
+        CHECK(result == expected);
+    }
+}
+
+
+TEST_CASE("prettify_it does stringification correctly")
+{
+    SUBCASE("p_i w/ reversing")
+    {
+        int num = 12345678;
+        string expected = "87654321";
+        auto result = prettify_it(num, ComputeMock(), Reverser());
         CHECK(result == expected);
     }
 }
