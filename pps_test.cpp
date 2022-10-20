@@ -1,7 +1,7 @@
 // pps_test.cpp
 // Glenn G. Chappell
 // Started: 2022-10-12
-// Updated: 2022-01-17
+// Updated: 2022-01-19
 //
 // For CS 471 Fall 2022
 // Test suite for pretty_print_square
@@ -28,6 +28,10 @@ using std::begin;
 using std::end;
 
 
+// class ComputeMock
+// Do-nothing Compute class. Function compute returns its argument.
+//
+// Conforms to the interface for a "computer" used by prettify_it.
 class ComputeMock {
 public:
     int compute(int n) const
@@ -37,6 +41,11 @@ public:
 };
 
 
+// class StringifyMock
+// Do-nothing Stringify class. Function stringify returns the string
+// form of its argument.
+//
+// Conforms to the interface for a "stringifier" used by prettify_it.
 class StringifyMock {
 public:
     string stringify(int nn) const
@@ -59,6 +68,11 @@ public:
 };
 
 
+// class Reverser
+// Has member func "stringify" that converts a number to a string and
+// returns the reverse of that string.
+//
+// Conforms to the interface for a "stringifier" used by prettify_it.
 class Reverser {
 public:
     string stringify(int nn) const
@@ -115,5 +129,40 @@ TEST_CASE("prettify_it does stringification correctly")
         auto result = prettify_it(num, ComputeMock(), Reverser());
         CHECK(result == expected);
     }
+}
+
+
+TEST_CASE("Cuber works")
+{
+    SUBCASE("Try Cuber by itself & with prettify_it")
+    {
+        // ------------------------------------------------------------
+
+        // ARRANGE
+
+        Cuber c;
+
+        int n1 = 3;
+        int expected1 = 27;
+
+        // ACT
+
+        auto result1 = c.compute(n1);
+
+        // ASSERT
+
+        REQUIRE(result1 == expected1);
+            // We do REQUIRE here, rather than CHECK, because if Cuber
+            // does not work by itself, then there is not much point in
+            // testing it as used by prettify_it (below).
+
+        // ------------------------------------------------------------
+
+        int n2 = 6;
+        string expected2 = "216";
+        auto result2 = prettify_it(n2, c, StringifyMock());
+        CHECK(result2 == expected2);
+    }
+
 }
 
