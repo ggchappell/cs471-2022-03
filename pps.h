@@ -1,7 +1,7 @@
 // pps.h
 // Glenn G. Chappell
 // Started: 2022-10-12
-// Updated: 2022-10-17
+// Updated: 2022-10-19
 //
 // For CS 471 Fall 2022
 // Header for function pretty_print_square
@@ -36,5 +36,18 @@ std::string prettify_it(int n,
 }
 
 
-#endif  ///#ifndef FILE_PPS_H_INCLUDED
+// class Cuber
+// Compute class. Function compute returns the cube of its argument.
+//
+// Conforms to the interface for a "computer" used by prettify_it.
+class Cuber {
+public:
+    int compute(int n)
+    {
+        return n*n*n;
+    }
+};
+
+
+#endif  //#ifndef FILE_PPS_H_INCLUDED
 

@@ -1,7 +1,7 @@
 // pps.cpp
 // Glenn G. Chappell
 // Started: 2022-10-12
-// Updated: 2022-10-17
+// Updated: 2022-10-19
 //
 // For CS 471 Fall 2022
 // Source for function pretty_print_square
@@ -15,7 +15,7 @@ using std::to_string;
 
 
 // class Squarer
-// Has member func "compute", that returns the square of its argument.
+// Compute class. Function compute returns the square of its argument.
 //
 // Conforms to the interface for a "computer" used by prettify_it.
 class Squarer {
